@@ -5,6 +5,7 @@ import { Services } from './components/Services';
 import { Calculator } from './components/Calculator';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { FAQ } from './components/FAQ';
+import { ReviewsSection } from './components/ReviewsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
@@ -16,6 +17,7 @@ import {
   SupportedLang,
 } from './data/legalTranslations';
 import { seoTranslations } from './data/seoTranslations';
+import { reviewsTranslations } from './data/reviewsTranslations';
 import { Phone, MessageSquare } from 'lucide-react';
 
 const LEGAL_ROUTES: LegalPageSlug[] = [
@@ -201,6 +203,9 @@ export default function App() {
             <Calculator t={t} onOpenQuoteWithDetails={handleOpenQuote} />
             <WhyChooseUs t={t} />
             <FAQ t={t} onOpenQuote={() => handleOpenQuote()} />
+            <ReviewsSection
+              ui={reviewsTranslations[currentLang] || reviewsTranslations.sl}
+            />
             <ContactSection
               t={t}
               seo={seo}
