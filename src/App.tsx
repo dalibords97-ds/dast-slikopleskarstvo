@@ -5,7 +5,6 @@ import { Services } from './components/Services';
 import { Calculator } from './components/Calculator';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { FAQ } from './components/FAQ';
-import { ServiceAreas } from './components/ServiceAreas';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
@@ -202,7 +201,6 @@ export default function App() {
             <Calculator t={t} onOpenQuoteWithDetails={handleOpenQuote} />
             <WhyChooseUs t={t} />
             <FAQ t={t} onOpenQuote={() => handleOpenQuote()} />
-            <ServiceAreas seo={seo} onOpenQuote={() => handleOpenQuote()} />
             <ContactSection
               t={t}
               seo={seo}

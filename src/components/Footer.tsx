@@ -61,15 +61,6 @@ export const Footer: React.FC<FooterProps> = ({ t, legal, seo, onNavigate }) => 
               </li>
               <li>
                 <a
-                  href="/#podrocje-delovanja"
-                  onClick={(e) => handleNav(e, '/#podrocje-delovanja')}
-                  className="inline-flex items-center min-h-[44px] text-zinc-300 hover:text-white transition-colors"
-                >
-                  {seo.serviceAreas.tag}
-                </a>
-              </li>
-              <li>
-                <a
                   href="/#kontakt"
                   onClick={(e) => handleNav(e, '/#kontakt')}
                   className="inline-flex items-center min-h-[44px] text-zinc-300 hover:text-white transition-colors"
