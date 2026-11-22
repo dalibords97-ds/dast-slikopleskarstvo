@@ -70,42 +70,54 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Navigation */}
-          <nav aria-label="Glavna navigacija" className="hidden md:flex items-center space-x-7">
-            <a
-              href="/#storitve"
-              onClick={(e) => handleNav(e, '/#storitve')}
-              className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2"
-            >
-              {t.nav.services}
-            </a>
-            <a
-              href="/#kalkulator"
-              onClick={(e) => handleNav(e, '/#kalkulator')}
-              className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2"
-            >
-              {t.nav.calculator}
-            </a>
-            <a
-              href="/#zakaj-mi"
-              onClick={(e) => handleNav(e, '/#zakaj-mi')}
-              className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2"
-            >
-              {t.nav.whyUs}
-            </a>
-            <a
-              href="/#faq"
-              onClick={(e) => handleNav(e, '/#faq')}
-              className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2"
-            >
-              {t.nav.faq}
-            </a>
-            <a
-              href="/#kontakt"
-              onClick={(e) => handleNav(e, '/#kontakt')}
-              className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2"
-            >
-              {t.nav.contact}
-            </a>
+          <nav aria-label="Glavna navigacija" className="hidden md:block">
+            <ul className="flex items-center space-x-7">
+              <li>
+                <a
+                  href="/#storitve"
+                  onClick={(e) => handleNav(e, '/#storitve')}
+                  className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2 inline-block"
+                >
+                  {t.nav.services}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#kalkulator"
+                  onClick={(e) => handleNav(e, '/#kalkulator')}
+                  className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2 inline-block"
+                >
+                  {t.nav.calculator}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#zakaj-mi"
+                  onClick={(e) => handleNav(e, '/#zakaj-mi')}
+                  className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2 inline-block"
+                >
+                  {t.nav.whyUs}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#faq"
+                  onClick={(e) => handleNav(e, '/#faq')}
+                  className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2 inline-block"
+                >
+                  {t.nav.faq}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#kontakt"
+                  onClick={(e) => handleNav(e, '/#kontakt')}
+                  className="text-sm font-medium text-zinc-200 hover:text-white transition-colors py-2 inline-block"
+                >
+                  {t.nav.contact}
+                </a>
+              </li>
+            </ul>
           </nav>
 
           {/* Right Actions: Language + CTA */}

@@ -204,6 +204,8 @@ export default function App() {
             <ContactSection
               t={t}
               seo={seo}
+              legal={legal}
+              onNavigate={navigate}
               onOpenQuote={() => handleOpenQuote()}
             />
           </>

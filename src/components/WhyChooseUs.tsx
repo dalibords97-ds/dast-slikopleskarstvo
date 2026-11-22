@@ -23,16 +23,23 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ t }) => {
   };
 
   return (
-    <section id="zakaj-mi" className="py-24 bg-[#141418] relative">
+    <section
+      id="zakaj-mi"
+      aria-labelledby="why-us-heading"
+      className="py-24 bg-[#141418] relative"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-14 max-w-3xl">
           <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-[#F59E0B] uppercase mb-3">
-            <span className="w-6 h-0.5 bg-[#F59E0B]" />
+            <span className="w-6 h-0.5 bg-[#F59E0B]" aria-hidden="true" />
             <span>{t.difference.tag}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
+          <h2
+            id="why-us-heading"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6"
+          >
             <span>{t.difference.titlePart1}</span>
             <span className="text-[#F59E0B]">{t.difference.titleHighlight}</span>
           </h2>
@@ -46,7 +53,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ t }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {t.difference.cards.map((card, index) => {
             return (
-              <div
+              <article
                 key={index}
                 className="group relative p-8 rounded-xl transition-all duration-300 flex flex-col justify-between bg-[#18181B] border border-zinc-800/80 hover:border-[#F59E0B] hover:shadow-xl hover:shadow-amber-500/10"
               >
@@ -70,7 +77,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ t }) => {
                     {card.description}
                   </p>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

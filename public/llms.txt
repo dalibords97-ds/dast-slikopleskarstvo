@@ -1,0 +1,37 @@
+# DAST — Zaključna gradbena dela & Slikopleskarstvo
+
+> DAST (ZAKLJUČNA GRADBENA DELA, DALIBOR STEFANOVIĆ, S.P.) is a Slovenian interior finishing and painting company specializing in Knauf drywall systems, Q1–Q4 wall skimming and plastering, machine airless painting, and moisture & mold remediation across western and central Slovenia.
+
+## Business Identity
+- **Brand Name**: DAST
+- **Legal Entity**: ZAKLJUČNA GRADBENA DELA, DALIBOR STEFANOVIĆ, S.P.
+- **Address**: Šmartno 35, 5211 Kojsko (Šmartno), Slovenia
+- **Registration Number (Matična št.)**: 9919937000
+- **Tax Number (Davčna št.)**: 27431673 (non-VAT registered)
+- **Registry**: AJPES (Slovenian Business Register)
+- **Website**: https://dast-finish.com
+- **Email**: info@dast-finish.com
+- **Phone / WhatsApp**: +386 69 950 491
+- **Working Hours**: Monday–Saturday, 07:00–19:00
+
+## Core Services
+- **Suhomontažna dela - Knauf**: Drywall partitions, suspended ceilings, linings, and Knauf finishing systems.
+- **Glajenje in kitanje sten Q1-Q4**: Machine and manual wall skimming, plastering, corner beading, and dust-free sanding up to Q4 luxury mirror-smooth quality.
+- **Strojno airless slikopleskarstvo**: High-pressure airless spray painting and manual painting using certified professional materials (JUB, Knauf, Caparol, Sto, Baumit).
+- **Sanacija vlage in plesni**: Moisture and mold remediation, breathable anti-mold coatings, and full interior wall renovations.
+
+## Service Areas (Slovenia)
+- **Goriška & Nova Gorica**: Šmartno, Nova Gorica, Šempeter pri Gorici, Solkan, Ajdovščina
+- **Primorska / Coast**: Koper, Izola, Piran, Sežana
+- **Central Slovenia**: Ljubljana and surroundings
+
+## Languages Supported
+- Primary: Slovenian (`sl`)
+- Additional: Serbian (`sr`), English (`en`), German (`de`), Italian (`it`)
+
+## Key Pages
+- [Home & Cost Calculator](https://dast-finish.com/): Overview of services, interactive m² price estimator, FAQ, and inquiry form.
+- [Impressum (Podatki o ponudniku)](https://dast-finish.com/impressum): Official company and registration details.
+- [Terms & Conditions (Splošni pogoji poslovanja)](https://dast-finish.com/splosni-pogoji): General terms, Q1–Q4 workmanship standards, and limitation of liability.
+- [Privacy Policy (Politika zasebnosti)](https://dast-finish.com/politika-zasebnosti): GDPR and ZVOP-2 personal data protection notice.
+- [Sitemap](https://dast-finish.com/sitemap.xml): XML sitemap of all canonical pages.

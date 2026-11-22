@@ -11,7 +11,10 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ t, seo, onOpenQuote }) => {
   return (
-    <section className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-[#0A0A0A]">
+    <section
+      aria-labelledby="hero-heading"
+      className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-[#0A0A0A]"
+    >
       {/* High-Res Responsive WebP Background Image with Cinematic Gradient Fade */}
       <div className="absolute inset-0 z-0">
         <picture>
@@ -50,7 +53,10 @@ export const Hero: React.FC<HeroProps> = ({ t, seo, onOpenQuote }) => {
           </div>
 
           {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] mb-6">
+          <h1
+            id="hero-heading"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] mb-6"
+          >
             <span>{t.hero.titlePart1} </span>
             <span className="text-[#F59E0B] block sm:inline">
               {t.hero.titlePart2}
@@ -83,20 +89,20 @@ export const Hero: React.FC<HeroProps> = ({ t, seo, onOpenQuote }) => {
           </div>
 
           {/* Trust Indicators Bar */}
-          <div className="pt-8 border-t border-zinc-800/80 flex flex-wrap gap-y-4 gap-x-8 text-sm text-zinc-200">
-            <div className="flex items-center gap-2.5">
+          <ul className="pt-8 border-t border-zinc-800/80 flex flex-wrap gap-y-4 gap-x-8 text-sm text-zinc-200">
+            <li className="flex items-center gap-2.5">
               <Sparkles className="w-4 h-4 text-[#F59E0B]" aria-hidden="true" />
               <span className="font-medium">{t.hero.cleanliness}</span>
-            </div>
-            <div className="flex items-center gap-2.5">
+            </li>
+            <li className="flex items-center gap-2.5">
               <Eye className="w-4 h-4 text-[#F59E0B]" aria-hidden="true" />
               <span className="font-medium">{t.hero.precision}</span>
-            </div>
-            <div className="flex items-center gap-2.5">
+            </li>
+            <li className="flex items-center gap-2.5">
               <Clock className="w-4 h-4 text-[#F59E0B]" aria-hidden="true" />
               <span className="font-medium">{t.hero.deadlines}</span>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
 

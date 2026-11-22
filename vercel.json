@@ -39,6 +39,19 @@
           "value": "text/plain; charset=utf-8"
         }
       ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
     }
   ],
   "rewrites": [
@@ -47,7 +60,7 @@
       "destination": "/api/$1"
     },
     {
-      "source": "/((?!api/|assets/|images/|sitemap\\.xml|robots\\.txt|favicon\\.svg).*)",
+      "source": "/((?!api/|assets/|images/|sitemap\\.xml|robots\\.txt|llms\\.txt|favicon\\.svg).*)",
       "destination": "/index.html"
     }
   ]

@@ -28,6 +28,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   initialValues,
 }) => {
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [service, setService] = useState(initialValues?.service || 'Airless barvanje');
   const [area, setArea] = useState(initialValues?.area ? String(initialValues.area) : '');
@@ -46,6 +47,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
+          email,
+          tel: phone,
           phone,
           service,
           area,
@@ -68,7 +71,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   };
 
   const handleWhatsAppSend = () => {
-    const text = `Pozdravljeni DAST!\nŽelim ponudbo za slikopleskarstvo:\n- Ime: ${name || '/'}\n- Telefon: ${phone || '/'}\n- Storitev: ${service}\n- Kvadratura: ${area ? `${area} m²` : '/'}\n- Lokacija: ${location || '/'}\n- Opombe: ${notes || '/'}`;
+    const text = `Pozdravljeni DAST!\nŽelim ponudbo za slikopleskarstvo:\n- Ime: ${name || '/'}\n- E-pošta: ${email || '/'}\n- Telefon: ${phone || '/'}\n- Storitev: ${service}\n- Kvadratura: ${area ? `${area} m²` : '/'}\n- Lokacija: ${location || '/'}\n- Opombe: ${notes || '/'}`;
     const url = `https://wa.me/38669950491?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
@@ -168,24 +171,45 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 />
               </div>
 
-              <div>
-                <label
-                  htmlFor="quote-phone"
-                  className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
-                >
-                  {t.contact.phoneLabel} *
-                </label>
-                <input
-                  id="quote-phone"
-                  name="phone"
-                  type="tel"
-                  required
-                  autoComplete="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+386 ..."
-                  className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    htmlFor="quote-phone"
+                    className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                  >
+                    {t.contact.phoneLabel} *
+                  </label>
+                  <input
+                    id="quote-phone"
+                    name="tel"
+                    type="tel"
+                    required
+                    autoComplete="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+386 ..."
+                    className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="quote-email"
+                    className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                  >
+                    E-mail
+                  </label>
+                  <input
+                    id="quote-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="ime.priimek@email.si"
+                    className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
+                  />
+                </div>
               </div>
 
               <div>

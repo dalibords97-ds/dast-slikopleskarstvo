@@ -23,7 +23,11 @@ export const Services: React.FC<ServicesProps> = ({ t, seo, onOpenQuote }) => {
   ];
 
   return (
-    <section id="storitve" className="py-24 bg-[#0A0A0A] relative">
+    <section
+      id="storitve"
+      aria-labelledby="services-heading"
+      className="py-24 bg-[#0A0A0A] relative"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-14">
@@ -31,7 +35,10 @@ export const Services: React.FC<ServicesProps> = ({ t, seo, onOpenQuote }) => {
             <span className="w-6 h-0.5 bg-[#F59E0B]" aria-hidden="true" />
             <span>{t.services.tag}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-2xl">
+          <h2
+            id="services-heading"
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight max-w-2xl"
+          >
             {t.services.title}
           </h2>
         </div>
@@ -43,7 +50,7 @@ export const Services: React.FC<ServicesProps> = ({ t, seo, onOpenQuote }) => {
             const altText = serviceAlts[index] || item.title;
 
             return (
-              <div
+              <article
                 key={index}
                 className="group relative bg-[#18181B] rounded-xl overflow-hidden border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 flex flex-col hover:shadow-2xl hover:shadow-black/50"
               >
@@ -125,7 +132,7 @@ export const Services: React.FC<ServicesProps> = ({ t, seo, onOpenQuote }) => {
                     {t.nav.requestQuote}
                   </button>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

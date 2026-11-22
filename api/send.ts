@@ -7,16 +7,18 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const { name, phone, service, area, location, notes } = req.body || {};
+    const { name, email, phone, tel, service, area, location, notes } = req.body || {};
+    const contactPhone = tel || phone;
 
-    if (!name || !phone) {
-      res.status(400).json({ error: 'Name and phone are required.' });
+    if (!name || (!contactPhone && !email)) {
+      res.status(400).json({ error: 'Name and phone or email are required.' });
       return;
     }
 
-    const emailBody = {
+    const emailBody: Record<string, any> = {
       from: 'DAST <onboarding@resend.dev>',
       to: ['dalibords97@gmail.com'],
+      ...(email ? { reply_to: email } : {}),
       subject: `Nova zahteva za ponudbo – ${service || 'Slikopleskarstvo'}`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; background-color: #18181B; color: #FFFFFF; border-radius: 12px; overflow: hidden; border: 1px solid #27272A;">
@@ -26,7 +28,8 @@ export default async function handler(req: any, res: any) {
           </div>
           <div style="padding: 24px;">
             <p><strong>Ime:</strong> ${name || '/'}</p>
-            <p><strong>Telefon:</strong> ${phone || '/'}</p>
+            <p><strong>E-pošta:</strong> ${email || '/'}</p>
+            <p><strong>Telefon:</strong> ${contactPhone || '/'}</p>
             <p><strong>Storitev:</strong> ${service || '/'}</p>
             <p><strong>Kvadratura:</strong> ${area ? `${area} m²` : '/'}</p>
             <p><strong>Lokacija:</strong> ${location || '/'}</p>
