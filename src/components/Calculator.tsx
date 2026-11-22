@@ -80,50 +80,53 @@ export const Calculator: React.FC<CalculatorProps> = ({ t, onOpenQuoteWithDetail
           <div className="lg:col-span-7 bg-[#18181D] border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-8 shadow-xl">
             {/* Step 1: Service Type Selection */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-300 mb-3">
+              <p className="block text-xs font-bold uppercase tracking-wider text-zinc-200 mb-3">
                 {calc.step1Title}
-              </label>
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <button
                   type="button"
+                  aria-pressed={serviceType === 'airless'}
                   onClick={() => setServiceType('airless')}
-                  className={`p-4 rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
+                  className={`p-4 min-h-[44px] rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
                     serviceType === 'airless'
                       ? 'bg-amber-500/10 border-amber-500 text-white shadow-lg shadow-amber-500/10'
-                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:text-white'
                   }`}
                 >
-                  <span className="text-xs font-bold text-[#F59E0B] mb-1">01</span>
+                  <span className="text-xs font-bold text-[#F59E0B] mb-1" aria-hidden="true">01</span>
                   <div className="text-sm font-bold text-white mb-1">{calc.serviceAirless}</div>
-                  <div className="text-[11px] text-zinc-400">{calc.serviceAirlessSub}</div>
+                  <div className="text-xs text-zinc-300">{calc.serviceAirlessSub}</div>
                 </button>
 
                 <button
                   type="button"
+                  aria-pressed={serviceType === 'kitanje'}
                   onClick={() => setServiceType('kitanje')}
-                  className={`p-4 rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
+                  className={`p-4 min-h-[44px] rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
                     serviceType === 'kitanje'
                       ? 'bg-amber-500/10 border-amber-500 text-white shadow-lg shadow-amber-500/10'
-                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:text-white'
                   }`}
                 >
-                  <span className="text-xs font-bold text-[#F59E0B] mb-1">02</span>
+                  <span className="text-xs font-bold text-[#F59E0B] mb-1" aria-hidden="true">02</span>
                   <div className="text-sm font-bold text-white mb-1">{calc.serviceKitanje}</div>
-                  <div className="text-[11px] text-zinc-400">{calc.serviceKitanjeSub}</div>
+                  <div className="text-xs text-zinc-300">{calc.serviceKitanjeSub}</div>
                 </button>
 
                 <button
                   type="button"
+                  aria-pressed={serviceType === 'prenova'}
                   onClick={() => setServiceType('prenova')}
-                  className={`p-4 rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
+                  className={`p-4 min-h-[44px] rounded-xl text-left border transition-all duration-200 flex flex-col justify-between ${
                     serviceType === 'prenova'
                       ? 'bg-amber-500/10 border-amber-500 text-white shadow-lg shadow-amber-500/10'
-                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-white'
+                      : 'bg-zinc-900/60 border-zinc-800 text-zinc-300 hover:border-zinc-700 hover:text-white'
                   }`}
                 >
-                  <span className="text-xs font-bold text-[#F59E0B] mb-1">03</span>
+                  <span className="text-xs font-bold text-[#F59E0B] mb-1" aria-hidden="true">03</span>
                   <div className="text-sm font-bold text-white mb-1">{calc.servicePrenova}</div>
-                  <div className="text-[11px] text-zinc-400">{calc.servicePrenovaSub}</div>
+                  <div className="text-xs text-zinc-300">{calc.servicePrenovaSub}</div>
                 </button>
               </div>
             </div>
@@ -131,28 +134,36 @@ export const Calculator: React.FC<CalculatorProps> = ({ t, onOpenQuoteWithDetail
             {/* Step 2: Surface Area Slider */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-300">
+                <label
+                  htmlFor="calc-area-slider"
+                  className="text-xs font-bold uppercase tracking-wider text-zinc-200"
+                >
                   {calc.step2Title}
                 </label>
                 <div className="flex items-center gap-1.5 bg-zinc-900 px-3 py-1 rounded-lg border border-zinc-700">
                   <span className="text-lg font-black text-white font-['Rajdhani']">{area}</span>
-                  <span className="text-xs text-amber-500 font-semibold">m²</span>
+                  <span className="text-xs text-[#F59E0B] font-semibold">m²</span>
                 </div>
               </div>
 
               {/* Slider */}
               <input
+                id="calc-area-slider"
                 type="range"
                 min="20"
                 max="400"
                 step="5"
                 value={area}
+                aria-valuemin={20}
+                aria-valuemax={400}
+                aria-valuenow={area}
+                aria-valuetext={`${area} m²`}
                 onChange={(e) => setArea(Number(e.target.value))}
-                className="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#F59E0B]"
+                className="w-full h-3 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#F59E0B]"
               />
 
               {/* Quick Preset Buttons */}
-              <div className="flex flex-wrap gap-2 mt-3">
+              <div className="flex flex-wrap gap-2.5 mt-4">
                 {[
                   { label: calc.presets.studio, val: 40 },
                   { label: calc.presets.twoRoom, val: 90 },
@@ -162,11 +173,12 @@ export const Calculator: React.FC<CalculatorProps> = ({ t, onOpenQuoteWithDetail
                   <button
                     key={preset.val}
                     type="button"
+                    aria-pressed={area === preset.val}
                     onClick={() => setArea(preset.val)}
-                    className={`text-xs px-2.5 py-1 rounded-md transition-colors ${
+                    className={`min-h-[44px] text-xs px-3.5 py-2 rounded-md transition-colors ${
                       area === preset.val
                         ? 'bg-[#F59E0B] text-black font-semibold'
-                        : 'bg-zinc-800/80 text-zinc-400 hover:text-white'
+                        : 'bg-zinc-800 text-zinc-200 hover:text-white hover:bg-zinc-700'
                     }`}
                   >
                     {preset.label}
@@ -177,14 +189,18 @@ export const Calculator: React.FC<CalculatorProps> = ({ t, onOpenQuoteWithDetail
 
             {/* Step 3: Options */}
             <div className="pt-2 border-t border-zinc-800/80">
-              <label className="flex items-center gap-3 cursor-pointer group">
+              <label
+                htmlFor="calc-high-ceilings"
+                className="flex items-center gap-3 min-h-[44px] cursor-pointer group"
+              >
                 <input
+                  id="calc-high-ceilings"
                   type="checkbox"
                   checked={highCeilings}
                   onChange={(e) => setHighCeilings(e.target.checked)}
-                  className="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-[#F59E0B] focus:ring-0 cursor-pointer accent-[#F59E0B]"
+                  className="w-5 h-5 rounded border-zinc-700 bg-zinc-900 text-[#F59E0B] cursor-pointer accent-[#F59E0B]"
                 />
-                <span className="text-xs text-zinc-300 group-hover:text-white transition-colors">
+                <span className="text-xs sm:text-sm text-zinc-200 group-hover:text-white transition-colors">
                   {calc.highCeilingsLabel}
                 </span>
               </label>

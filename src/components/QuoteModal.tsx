@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { X, Send, CheckCircle2, MessageSquare } from 'lucide-react';
 import { Translation } from '../data/translations';
 import { LegalTranslation } from '../data/legalTranslations';
+import { SeoTranslation } from '../data/seoTranslations';
 
 interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   t: Translation;
   legal: LegalTranslation;
+  seo: SeoTranslation;
   onNavigate: (path: string) => void;
   initialValues?: {
     service?: string;
@@ -21,6 +23,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   onClose,
   t,
   legal,
+  seo,
   onNavigate,
   initialValues,
 }) => {
@@ -71,31 +74,38 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quote-modal-title"
+    >
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/85 backdrop-blur-sm transition-opacity"
         onClick={onClose}
+        aria-hidden="true"
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-lg bg-[#18181D] border border-zinc-700/80 rounded-2xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
+      <div className="relative w-full max-w-lg bg-[#18181B] border border-zinc-700/80 rounded-2xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-zinc-800 flex items-center justify-between">
+        <div className="p-6 border-b border-zinc-800 flex items-center justify-between gap-4">
           <div>
-            <h3 className="text-xl font-bold text-white">
+            <h2 id="quote-modal-title" className="text-xl font-bold text-white">
               {t.contact.modalTitle}
-            </h3>
-            <p className="text-xs text-zinc-400 mt-1">
+            </h2>
+            <p className="text-xs text-zinc-300 mt-1">
               {t.contact.modalSubtitle}
             </p>
           </div>
           <button
+            type="button"
             onClick={onClose}
-            className="text-zinc-400 hover:text-white p-2 rounded-lg hover:bg-zinc-800 transition-colors"
-            aria-label="Zapri"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-800 transition-colors shrink-0"
+            aria-label={seo.a11y.closeModal}
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -103,29 +113,34 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
         <div className="p-6 overflow-y-auto">
           {isSubmitted ? (
             <div className="text-center py-8 space-y-4">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+              <div
+                className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center mx-auto"
+                aria-hidden="true"
+              >
                 <CheckCircle2 className="w-10 h-10" />
               </div>
-              <h4 className="text-xl font-bold text-white">
+              <h3 className="text-xl font-bold text-white">
                 {t.contact.successMessage}
-              </h4>
-              <p className="text-sm text-zinc-400 max-w-sm mx-auto">
+              </h3>
+              <p className="text-sm text-zinc-300 max-w-sm mx-auto">
                 Naša ekipa vas bo kontaktirala za potrditev termina brezplačnega ogleda.
               </p>
               <div className="pt-4 flex flex-col gap-3">
                 <button
+                  type="button"
                   onClick={handleWhatsAppSend}
-                  className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-lg text-sm transition-colors"
+                  className="min-h-[44px] flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 px-6 rounded-lg text-sm transition-colors"
                 >
-                  <MessageSquare className="w-4 h-4 fill-current" />
+                  <MessageSquare className="w-4 h-4 fill-current" aria-hidden="true" />
                   <span>Pošlji še sporočilo na WhatsApp</span>
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setIsSubmitted(false);
                     onClose();
                   }}
-                  className="text-xs text-zinc-400 hover:text-white py-2"
+                  className="min-h-[44px] text-xs text-zinc-300 hover:text-white py-2"
                 >
                   Zapri okno
                 </button>
@@ -134,41 +149,58 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="quote-name"
+                  className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                >
                   {t.contact.nameLabel} *
                 </label>
                 <input
+                  id="quote-name"
+                  name="name"
                   type="text"
                   required
+                  autoComplete="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="npr. Marko Novak"
-                  className="w-full bg-[#111114] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#F59E0B] transition-colors"
+                  className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="quote-phone"
+                  className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                >
                   {t.contact.phoneLabel} *
                 </label>
                 <input
+                  id="quote-phone"
+                  name="phone"
                   type="tel"
                   required
+                  autoComplete="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+386 ..."
-                  className="w-full bg-[#111114] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#F59E0B] transition-colors"
+                  className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="quote-service"
+                  className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                >
                   {t.contact.serviceLabel}
                 </label>
                 <select
+                  id="quote-service"
+                  name="service"
                   value={service}
                   onChange={(e) => setService(e.target.value)}
-                  className="w-full bg-[#111114] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#F59E0B] transition-colors"
+                  className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#D4AF37] transition-colors"
                 >
                   <option value="Airless barvanje">Airless barvanje</option>
                   <option value="Kitanje in glajenje">Kitanje in glajenje (Q1–Q4)</option>
@@ -182,52 +214,67 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
+                  <label
+                    htmlFor="quote-area"
+                    className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                  >
                     {t.contact.areaLabel}
                   </label>
                   <input
+                    id="quote-area"
+                    name="area"
                     type="number"
                     value={area}
                     onChange={(e) => setArea(e.target.value)}
                     placeholder="npr. 120"
-                    className="w-full bg-[#111114] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#F59E0B] transition-colors"
+                    className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
+                  <label
+                    htmlFor="quote-location"
+                    className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                  >
                     {t.contact.locationLabel}
                   </label>
                   <input
+                    id="quote-location"
+                    name="location"
                     type="text"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    placeholder="npr. Goriška Brda"
-                    className="w-full bg-[#111114] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#F59E0B] transition-colors"
+                    placeholder="npr. Nova Gorica"
+                    className="w-full min-h-[44px] bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">
+                <label
+                  htmlFor="quote-notes"
+                  className="block text-xs font-semibold text-zinc-200 uppercase tracking-wider mb-1.5"
+                >
                   {t.contact.messageLabel}
                 </label>
                 <textarea
+                  id="quote-notes"
+                  name="notes"
                   rows={3}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Kratek opis stanja sten, želeni roki..."
-                  className="w-full bg-[#111114] border border-zinc-700 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-[#F59E0B] transition-colors resize-none"
+                  className="w-full bg-[#0A0A0A] border border-zinc-700 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-400 focus:outline-none focus:border-[#D4AF37] transition-colors resize-none"
                 />
               </div>
 
               <div className="pt-2 flex flex-col gap-2.5">
-                <p className="text-[11px] leading-relaxed text-zinc-400 text-center px-1">
+                <p className="text-xs leading-relaxed text-zinc-300 text-center px-1">
                   {legal.ui.formConsent.prefix}
                   <a
                     href="/splosni-pogoji"
                     onClick={(e) => handleLegalLink(e, '/splosni-pogoji')}
-                    className="text-[#D4AF37] hover:text-[#F59E0B] underline decoration-[#C19346]/50 underline-offset-2 transition-colors"
+                    className="text-[#D4AF37] hover:text-[#F59E0B] underline decoration-[#C19346]/60 underline-offset-2 transition-colors"
                   >
                     {legal.ui.formConsent.termsLink}
                   </a>
@@ -235,7 +282,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   <a
                     href="/politika-zasebnosti"
                     onClick={(e) => handleLegalLink(e, '/politika-zasebnosti')}
-                    className="text-[#D4AF37] hover:text-[#F59E0B] underline decoration-[#C19346]/50 underline-offset-2 transition-colors"
+                    className="text-[#D4AF37] hover:text-[#F59E0B] underline decoration-[#C19346]/60 underline-offset-2 transition-colors"
                   >
                     {legal.ui.formConsent.privacyLink}
                   </a>
@@ -244,18 +291,18 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-[#F59E0B] hover:bg-[#D97706] text-black font-bold py-3.5 px-6 rounded-lg text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all duration-200"
+                  className="w-full min-h-[48px] flex items-center justify-center gap-2 bg-[#F59E0B] hover:bg-[#D97706] text-black font-bold py-3.5 px-6 rounded-lg text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all duration-200"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-4 h-4" aria-hidden="true" />
                   <span>{t.contact.submitButton}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={handleWhatsAppSend}
-                  className="w-full flex items-center justify-center gap-2 border border-emerald-600/70 bg-emerald-950/20 hover:bg-emerald-900/30 text-emerald-400 font-semibold py-3 px-6 rounded-lg text-sm transition-all duration-200"
+                  className="w-full min-h-[48px] flex items-center justify-center gap-2 border border-emerald-500/80 bg-emerald-950/30 hover:bg-emerald-900/40 text-emerald-300 font-semibold py-3 px-6 rounded-lg text-sm transition-all duration-200"
                 >
-                  <MessageSquare className="w-4 h-4 fill-current" />
+                  <MessageSquare className="w-4 h-4 fill-current" aria-hidden="true" />
                   <span>Pošlji neposredno na WhatsApp</span>
                 </button>
               </div>

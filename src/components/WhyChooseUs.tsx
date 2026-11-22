@@ -37,7 +37,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ t }) => {
             <span className="text-[#F59E0B]">{t.difference.titleHighlight}</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-zinc-400 leading-relaxed">
+          <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
             {t.difference.subtitle}
           </p>
         </div>
@@ -48,15 +48,15 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ t }) => {
             return (
               <div
                 key={index}
-                className="group relative p-8 rounded-xl transition-all duration-300 flex flex-col justify-between bg-[#18181D] border border-zinc-800/80 hover:border-[#F59E0B] hover:shadow-xl hover:shadow-amber-500/10 cursor-pointer"
+                className="group relative p-8 rounded-xl transition-all duration-300 flex flex-col justify-between bg-[#18181B] border border-zinc-800/80 hover:border-[#F59E0B] hover:shadow-xl hover:shadow-amber-500/10"
               >
                 {/* Header: Icon & Number */}
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-between mb-8" aria-hidden="true">
                   <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-zinc-800/90 border border-zinc-700/60 group-hover:border-amber-500/50 group-hover:bg-amber-500/10 transition-all duration-300">
                     {getIcon(card.icon)}
                   </div>
 
-                  <span className="text-4xl font-extrabold font-['Rajdhani'] text-zinc-700/60 group-hover:text-amber-500/80 transition-colors select-none">
+                  <span className="text-4xl font-extrabold font-['Rajdhani'] text-zinc-500/70 group-hover:text-amber-500/90 transition-colors select-none">
                     {card.number}
                   </span>
                 </div>
@@ -66,7 +66,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ t }) => {
                   <h3 className="text-lg font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">
                     {card.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
                     {card.description}
                   </p>
                 </div>

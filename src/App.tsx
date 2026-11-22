@@ -5,6 +5,7 @@ import { Services } from './components/Services';
 import { Calculator } from './components/Calculator';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { FAQ } from './components/FAQ';
+import { ServiceAreas } from './components/ServiceAreas';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { QuoteModal } from './components/QuoteModal';
@@ -15,6 +16,7 @@ import {
   LegalPageSlug,
   SupportedLang,
 } from './data/legalTranslations';
+import { seoTranslations } from './data/seoTranslations';
 import { Phone, MessageSquare } from 'lucide-react';
 
 const LEGAL_ROUTES: LegalPageSlug[] = [
@@ -23,10 +25,12 @@ const LEGAL_ROUTES: LegalPageSlug[] = [
   '/politika-zasebnosti',
 ];
 
+const SITE_ORIGIN = 'https://dast-finish.com';
+
 const DEFAULT_SEO_TITLE =
-  'DAST — Slikopleskarstvo | Airless barvanje, Kitanje, Glajenje';
+  'DAST — Slikopleskarstvo, Kitanje Q1–Q4 & Zaključna gradbena dela | Goriška, Koper, Ljubljana';
 const DEFAULT_SEO_DESCRIPTION =
-  'Sodobno in precizno slikopleskarstvo za vaš dom. Specializirani za kitanje, glajenje in barvanje z airless črpalkami za brezhibne površine. Šmartno, Kojsko, Slovenija.';
+  'DAST — Zaključna gradbena dela, suhomontažna dela (Knauf), glajenje in kitanje sten Q1–Q4, strojno airless beljenje ter sanacija vlage in plesni. Goriška, Nova Gorica, Šmartno, Koper in Ljubljana.';
 
 function normalizePath(pathname: string): string {
   const clean = pathname.replace(/\/+$/, '');
@@ -66,6 +70,7 @@ export default function App() {
 
   const t = translations[currentLang] || translations.sl;
   const legal = legalTranslations[currentLang] || legalTranslations.sl;
+  const seo = seoTranslations[currentLang] || seoTranslations.sl;
 
   const handleSelectLang = (lang: string) => {
     const validLang = (['sl', 'sr', 'en', 'de', 'it'].includes(lang)
@@ -82,9 +87,14 @@ export default function App() {
   const navigate = useCallback((target: string) => {
     const [rawPath, hash] = target.split('#');
     const nextPath = normalizePath(rawPath || '/');
-    const fullUrl = hash ? `${nextPath === '/' ? '' : nextPath}/#${hash}`.replace('//', '/') : nextPath;
+    const fullUrl = hash
+      ? `${nextPath === '/' ? '' : nextPath}/#${hash}`.replace('//', '/')
+      : nextPath;
 
-    if (window.location.pathname !== nextPath || (hash && window.location.hash !== `#${hash}`)) {
+    if (
+      window.location.pathname !== nextPath ||
+      (hash && window.location.hash !== `#${hash}`)
+    ) {
       window.history.pushState({}, '', fullUrl || '/');
     }
 
@@ -115,6 +125,8 @@ export default function App() {
 
     let title = DEFAULT_SEO_TITLE;
     let description = DEFAULT_SEO_DESCRIPTION;
+    const canonicalPath = isLegalRoute(currentPath) ? currentPath : '/';
+    const canonicalUrl = `${SITE_ORIGIN}${canonicalPath}`;
 
     if (currentPath === '/impressum') {
       title = legal.impressum.seoTitle;
@@ -128,10 +140,20 @@ export default function App() {
     }
 
     document.title = title;
+
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute('content', description);
     }
+
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (canonicalEl) {
+      canonicalEl.setAttribute('href', canonicalUrl);
+    }
+
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => {
+      el.setAttribute('href', canonicalUrl);
+    });
   }, [currentPath, currentLang, legal]);
 
   const handleOpenQuote = (details?: {
@@ -154,10 +176,11 @@ export default function App() {
   const activeLegalSlug = isLegalRoute(currentPath) ? currentPath : null;
 
   return (
-    <div className="min-h-screen bg-[#111114] text-white selection:bg-[#F59E0B] selection:text-black">
+    <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#D4AF37] selection:text-black">
       {/* Navigation Bar */}
       <Navbar
         t={t}
+        seo={seo}
         currentLang={currentLang}
         onSelectLang={handleSelectLang}
         onOpenQuote={() => handleOpenQuote()}
@@ -174,18 +197,23 @@ export default function App() {
           />
         ) : (
           <>
-            <Hero t={t} onOpenQuote={() => handleOpenQuote()} />
-            <Services t={t} onOpenQuote={() => handleOpenQuote()} />
+            <Hero t={t} seo={seo} onOpenQuote={() => handleOpenQuote()} />
+            <Services t={t} seo={seo} onOpenQuote={() => handleOpenQuote()} />
             <Calculator t={t} onOpenQuoteWithDetails={handleOpenQuote} />
             <WhyChooseUs t={t} />
             <FAQ t={t} onOpenQuote={() => handleOpenQuote()} />
-            <ContactSection t={t} onOpenQuote={() => handleOpenQuote()} />
+            <ServiceAreas seo={seo} onOpenQuote={() => handleOpenQuote()} />
+            <ContactSection
+              t={t}
+              seo={seo}
+              onOpenQuote={() => handleOpenQuote()}
+            />
           </>
         )}
       </main>
 
       {/* Footer */}
-      <Footer t={t} legal={legal} onNavigate={navigate} />
+      <Footer t={t} legal={legal} seo={seo} onNavigate={navigate} />
 
       {/* Interactive Quote / Inspection Modal */}
       <QuoteModal
@@ -193,27 +221,28 @@ export default function App() {
         onClose={() => setIsQuoteModalOpen(false)}
         t={t}
         legal={legal}
+        seo={seo}
         onNavigate={navigate}
         initialValues={quoteInitialValues}
       />
 
       {/* Mobile Floating Quick Action Bar */}
-      <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2.5 sm:hidden">
+      <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-3 sm:hidden">
         <a
           href="https://wa.me/38669950491"
           target="_blank"
           rel="noopener noreferrer"
           className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
-          aria-label="WhatsApp"
+          aria-label={seo.a11y.sendWhatsApp}
         >
-          <MessageSquare className="w-6 h-6 fill-current" />
+          <MessageSquare className="w-6 h-6 fill-current" aria-hidden="true" />
         </a>
         <a
           href="tel:+38669950491"
           className="w-12 h-12 rounded-full bg-[#F59E0B] text-black flex items-center justify-center shadow-2xl hover:scale-105 transition-transform font-bold"
-          aria-label="Kliči"
+          aria-label={seo.a11y.callPhone}
         >
-          <Phone className="w-5 h-5" />
+          <Phone className="w-5 h-5" aria-hidden="true" />
         </a>
       </div>
     </div>

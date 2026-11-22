@@ -97,15 +97,15 @@ export const LegalPage: React.FC<LegalPageProps> = ({
           <p className="mt-4 text-base sm:text-lg text-zinc-400 leading-relaxed max-w-3xl">
             {activeData.subtitle}
           </p>
-          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-zinc-500">
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#18181B] border border-zinc-800/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
+          <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-zinc-300">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#18181B] border border-zinc-800/80">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" aria-hidden="true" />
               {legal.ui.lastUpdatedLabel}: {legal.ui.lastUpdatedValue}
             </span>
-            <span className="text-zinc-600">DAST · dast-finish.com</span>
+            <span className="text-zinc-400">DAST · dast-finish.com</span>
           </div>
           {legal.ui.primaryLanguageNote && (
-            <p className="mt-4 text-xs text-zinc-500 italic border-l-2 border-[#C19346]/50 pl-3">
+            <p className="mt-4 text-xs text-zinc-300 italic border-l-2 border-[#C19346]/70 pl-3">
               {legal.ui.primaryLanguageNote}
             </p>
           )}
