@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, MessageSquare } from 'lucide-react';
 import { Translation } from '../data/translations';
+import { LegalTranslation } from '../data/legalTranslations';
 
 interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   t: Translation;
+  legal: LegalTranslation;
+  onNavigate: (path: string) => void;
   initialValues?: {
     service?: string;
     area?: number | string;
@@ -17,6 +20,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
   isOpen,
   onClose,
   t,
+  legal,
+  onNavigate,
   initialValues,
 }) => {
   const [name, setName] = useState('');
@@ -29,9 +34,34 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          phone,
+          service,
+          area,
+          location,
+          notes,
+        }),
+      });
+      if (!response.ok) {
+        console.error('Email send failed', await response.text());
+      }
+    } catch (err) {
+      console.error('Error sending email', err);
+    }
+  };
+
+  const handleLegalLink = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    onClose();
+    onNavigate(path);
   };
 
   const handleWhatsAppSend = () => {
@@ -192,6 +222,26 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               </div>
 
               <div className="pt-2 flex flex-col gap-2.5">
+                <p className="text-[11px] leading-relaxed text-zinc-400 text-center px-1">
+                  {legal.ui.formConsent.prefix}
+                  <a
+                    href="/splosni-pogoji"
+                    onClick={(e) => handleLegalLink(e, '/splosni-pogoji')}
+                    className="text-[#D4AF37] hover:text-[#F59E0B] underline decoration-[#C19346]/50 underline-offset-2 transition-colors"
+                  >
+                    {legal.ui.formConsent.termsLink}
+                  </a>
+                  {legal.ui.formConsent.and}
+                  <a
+                    href="/politika-zasebnosti"
+                    onClick={(e) => handleLegalLink(e, '/politika-zasebnosti')}
+                    className="text-[#D4AF37] hover:text-[#F59E0B] underline decoration-[#C19346]/50 underline-offset-2 transition-colors"
+                  >
+                    {legal.ui.formConsent.privacyLink}
+                  </a>
+                  {legal.ui.formConsent.suffix}
+                </p>
+
                 <button
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 bg-[#F59E0B] hover:bg-[#D97706] text-black font-bold py-3.5 px-6 rounded-lg text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20 transition-all duration-200"

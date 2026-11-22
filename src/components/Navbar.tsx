@@ -7,6 +7,7 @@ interface NavbarProps {
   currentLang: string;
   onSelectLang: (lang: string) => void;
   onOpenQuote: () => void;
+  onNavigate: (path: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -14,10 +15,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   currentLang,
   onSelectLang,
   onOpenQuote,
+  onNavigate,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    onNavigate(path);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +55,8 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a
-            href="#"
+            href="/"
+            onClick={(e) => handleNav(e, '/')}
             className="tracking-[0.25em] font-['Rajdhani'] text-2xl sm:text-3xl font-extrabold text-white group"
           >
             <span className="text-white group-hover:text-amber-500 transition-colors">
@@ -58,31 +67,36 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-7">
             <a
-              href="#storitve"
+              href="/#storitve"
+              onClick={(e) => handleNav(e, '/#storitve')}
               className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
             >
               {t.nav.services}
             </a>
             <a
-              href="#kalkulator"
+              href="/#kalkulator"
+              onClick={(e) => handleNav(e, '/#kalkulator')}
               className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
             >
               {t.nav.calculator}
             </a>
             <a
-              href="#zakaj-mi"
+              href="/#zakaj-mi"
+              onClick={(e) => handleNav(e, '/#zakaj-mi')}
               className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
             >
               {t.nav.whyUs}
             </a>
             <a
-              href="#faq"
+              href="/#faq"
+              onClick={(e) => handleNav(e, '/#faq')}
               className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
             >
               {t.nav.faq}
             </a>
             <a
-              href="#kontakt"
+              href="/#kontakt"
+              onClick={(e) => handleNav(e, '/#kontakt')}
               className="text-sm font-medium text-zinc-300 hover:text-white transition-colors"
             >
               {t.nav.contact}
@@ -171,36 +185,36 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="md:hidden bg-[#18181B] border-b border-zinc-800 px-4 pt-3 pb-6 space-y-4 shadow-xl">
           <div className="flex flex-col space-y-3">
             <a
-              href="#storitve"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/#storitve"
+              onClick={(e) => handleNav(e, '/#storitve')}
               className="text-base font-medium text-zinc-300 hover:text-amber-400"
             >
               {t.nav.services}
             </a>
             <a
-              href="#kalkulator"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/#kalkulator"
+              onClick={(e) => handleNav(e, '/#kalkulator')}
               className="text-base font-medium text-zinc-300 hover:text-amber-400"
             >
               {t.nav.calculator}
             </a>
             <a
-              href="#zakaj-mi"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/#zakaj-mi"
+              onClick={(e) => handleNav(e, '/#zakaj-mi')}
               className="text-base font-medium text-zinc-300 hover:text-amber-400"
             >
               {t.nav.whyUs}
             </a>
             <a
-              href="#faq"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/#faq"
+              onClick={(e) => handleNav(e, '/#faq')}
               className="text-base font-medium text-zinc-300 hover:text-amber-400"
             >
               {t.nav.faq}
             </a>
             <a
-              href="#kontakt"
-              onClick={() => setMobileMenuOpen(false)}
+              href="/#kontakt"
+              onClick={(e) => handleNav(e, '/#kontakt')}
               className="text-base font-medium text-zinc-300 hover:text-amber-400"
             >
               {t.nav.contact}
